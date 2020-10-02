@@ -45,6 +45,12 @@ const FiledFormModal = () => {
         e.preventDefault()
         try {
             // submit here
+            const data = {
+                name: selectedField,
+                label: label,
+                options: selectedField === 'multiple choice' ? mOptions.filter(val => val !== '') : []
+            }
+            console.log(data)
 
         } catch (e) {
             console.error(e.message)
@@ -120,21 +126,6 @@ const FiledFormModal = () => {
     </div >)
 }
 
-const MCOptionsList = ({ addOption, removeOption, i }) => {
-
-    const [value, setValue] = useState('')
-
-
-    return (<div key={i} className="flex items-center justify-between space-x-1">
-        <input value={value} onChange={(e) => setValue(e.target.value)} className="bg-gray-200 p-1 rounded-md" />
-        <button onClick={addOption} className="flex items-center justify-between bg-gray-700 hover:bg-gray-800 text-white rounded-full p-1">
-            <PlusIcon className="w-5 h-5" />
-        </button>
-        <button onClick={() => removeOption(i)} className="flex items-center justify-between bg-gray-700 hover:bg-gray-800 text-white rounded-full p-1">
-            <MinusIcon className="w-5 h-5" />
-        </button>
-    </div>)
-}
 function PlusIcon({ className }) {
     return (<svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>)
 }
@@ -143,7 +134,7 @@ const DisplayField = (props) => {
     switch (props.name) {
         case 'textarea':
             return (<label className="flex items-center space-x-3">
-                {props.name} <textarea></textarea>
+                {props.name} <textarea rows="10" cols="50"></textarea>
             </label>)
         case 'input':
             return (<label className="flex items-center space-x-3">
