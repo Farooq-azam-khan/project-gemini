@@ -8,7 +8,7 @@ const ListForms = () => {
     const [forms, setForms] = useState([])
 
     const getForms = async () => {
-        const response = await fetch("http://localhost:5000/forms")
+        const response = await fetch("/forms")
         const formsjson = await response.json();
         // console.log(formsjson)
         setForms(formsjson)

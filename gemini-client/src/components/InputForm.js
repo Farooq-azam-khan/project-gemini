@@ -7,7 +7,7 @@ const InputForm = () => {
         e.preventDefault()
         try {
             const data = { name, organizer }
-            const response = await fetch('http://localhost:5000/forms', {
+            const response = await fetch('/forms', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

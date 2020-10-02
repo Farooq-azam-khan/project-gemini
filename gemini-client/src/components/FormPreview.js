@@ -12,7 +12,7 @@ const FormPreview = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/form-preview/${id}/data`)
+        fetch(`/form-preview/${id}/data`)
             .then(resp => resp.json())
             .then(data => { setForm(data.form); setFields(data.fields); console.log(data) })
     }, [])
