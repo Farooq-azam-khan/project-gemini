@@ -24,7 +24,7 @@ const FormPreview = () => {
                 {fields.map((f) => <DisplayField key={f.id} {...f} />)}
             </div>
             <div>
-                <button onClick={() => showFieldModal(true)} className="rounded-md bg-gray-800 text-white px-3 py-2 text-md shadow-md">Add Form Field</button>
+                <button onClick={() => showFieldModal(true)} className="rounded-md bg-gray-800 text-white px-3 py-2 text-md shadow-md hover:bg-gray-900">Add Form Field</button>
                 {filedModal ? <><button onClick={() => showFieldModal(false)} className="fixed inset-0 cursor-default bg-black opacity-50 w-full h-full" /><FiledFormModal close={showFieldModal} /></> : null}
             </div>
         </div>
