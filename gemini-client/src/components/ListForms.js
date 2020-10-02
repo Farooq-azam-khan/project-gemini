@@ -17,7 +17,7 @@ const ListForms = () => {
         <div className="flex flex-col items-center">
             <h2 className="text-xl font-bold text-center">Forms</h2>
             <div className="flex flex-col space-y-2 items-center justify-between">
-                {forms.length != 0 ? forms.map(form_data => <FormCard {...form_data} />) : null}
+                {forms.length != 0 ? forms.map(form_data => <FormCard key={form_data.id} {...form_data} />) : null}
             </div>
             <AddFormCard />
         </div>
@@ -44,9 +44,9 @@ const FormCard = ({ name, organizer, is_published }) => {
             <span><LinkIcon className="w-4 h-4" /></span>
         </div>
         <div className="inline-flex items-center justify-end space-x-2 mt-2 p-2">
-            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full">Preview</button>
-            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full">{is_published ? 'unpublish' : 'publish'}</button>
-            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full">Edit</button>
+            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">Preview</button>
+            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">{is_published ? 'unpublish' : 'publish'}</button>
+            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">Edit</button>
         </div>
     </div>)
 }
