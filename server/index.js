@@ -12,6 +12,82 @@ app.use(cors())
 app.use(express.json())
 
 // Routes 
+
+// create form field for a form
+
+app.get('/form-preview/:id/data', async (req, res) => {
+    try {
+        const form_id = req.params.id
+        console.log(form_id)
+        const form_data = await pool.query(`SELECT * FROM form WHERE id=$1`, [form_id])
+        form = form_data.rows[0]
+        if (form.is_published) {
+            const fields_data = await pool.query(`SELECT * FROM form_field WHERE form=$1`, [form_id])
+
+            fields = fields_data.rows
+
+            for (let i = 0; i < fields.length; i++) {
+                const f = fields[i]
+                if (f.name == 'multiple choice') {
+                    const options_data = await pool.query('SELECT * FROM options WHERE form_field=$1', [f.id])
+                    const field_options = options_data.rows
+                    f.options = field_options
+                }
+
+            }
+
+            res.json({ form, "fields": fields })
+        } else {
+            res.json(form_data)
+        }
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+app.post("/forms/:id/forms_field", async (req, res) => {
+    try {
+        console.log(req.body)
+        const form_id = req.params.id
+        const { name, label } = req.body
+        const valid_names = ['multiple choice', 'input', 'textbox']
+        if (valid_names.includes(name)) {
+            const newFormField = await pool.query(`INSERT INTO form_field (name, label, form) VALUES ($1,$2,$3) RETURNING *`,
+                [name, label, form_id]
+            )
+
+            res.json(newFormField)
+            if (name === 'multiple choice') {
+                // add the options
+                const options = req.body.options
+                // let alloptions = []
+                options.forEach(async (op) => {
+                    const newoption = await pool.query(`INSERT INTO options (name, form_field) VALUES ($1, $2)`,
+                        [op, newFormField.rows[0].id]
+                    )
+                })
+            }
+
+
+
+        } else {
+            res.json('name filed is not valid')
+        }
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+// get form fields with given id 
+app.get('/forms/:id/forms_field', async (req, res) => {
+    try {
+        const form_id = req.params.id
+        const { name, label } = req.body
+        const newFormField = await pool.query(`SELECT * FROM form_field WHERE form=$1`, [form_id])
+        res.json(newFormField.rows)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 // create a form 
 app.post("/forms", async (req, res) => {
     try {
