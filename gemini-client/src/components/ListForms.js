@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+import {
+    Link
+} from "react-router-dom";
+
 const ListForms = () => {
     const [forms, setForms] = useState([])
 
@@ -11,8 +15,9 @@ const ListForms = () => {
     }
 
     useEffect(() => {
-        getForms();
-    })
+        getForms()
+    }, [])
+
     return (
         <div className="flex flex-col items-center">
             <h2 className="text-xl font-bold text-center">Forms</h2>
@@ -33,7 +38,7 @@ const AddFormCard = () => {
         <h3 className="text-xl">Add Form</h3>
     </a>)
 }
-const FormCard = ({ name, organizer, is_published }) => {
+const FormCard = ({ id, name, organizer, is_published }) => {
     return (<div className="flex flex-col items-center border-2 border-solid">
         <div className="bg-blue-200 w-full h-32 flex items-center justify-center">
             <span>{name}</span>
@@ -44,7 +49,7 @@ const FormCard = ({ name, organizer, is_published }) => {
             <span><LinkIcon className="w-4 h-4" /></span>
         </div>
         <div className="inline-flex items-center justify-end space-x-2 mt-2 p-2">
-            <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">Preview</button>
+            <Link to={`/forms-preview/${id}`} className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">Preview</Link>
             <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">{is_published ? 'unpublish' : 'publish'}</button>
             <button className="text-sm border border-blue-200 px-2 py-1 rounded-full hover:border-none hover:bg-blue-200 hover:text-black">Edit</button>
         </div>
