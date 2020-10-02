@@ -18,7 +18,7 @@ app.use(express.json())
 app.get('/form-preview/:id/data', async (req, res) => {
     try {
         const form_id = req.params.id
-        console.log(form_id)
+        // console.log(form_id)
         const form_data = await pool.query(`SELECT * FROM form WHERE id=$1`, [form_id])
         form = form_data.rows[0]
         if (form.is_published) {
@@ -46,7 +46,7 @@ app.get('/form-preview/:id/data', async (req, res) => {
 })
 app.post("/forms/:id/forms_field", async (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const form_id = req.params.id
         const { name, label } = req.body
         const valid_names = ['multiple choice', 'input', 'textbox']
@@ -91,7 +91,7 @@ app.get('/forms/:id/forms_field', async (req, res) => {
 // create a form 
 app.post("/forms", async (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const { name, organizer } = req.body;
         let is_published = false;
         if (req.body.is_published == true || req.body.is_published == false) {
