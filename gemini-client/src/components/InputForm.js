@@ -12,11 +12,13 @@ const InputForm = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            const jsondata = await response.json();
-            console.log(jsondata)
+            //const jsondata = await response.json();
+            //console.log(jsondata)
+            window.location = '/'
         } catch (err) {
             console.error(err.message)
         }
+
     }
     return (
         <div className="flex flex-col space-y-2 p-1">
