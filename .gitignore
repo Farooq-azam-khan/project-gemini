@@ -1,6 +1,8 @@
 .env
 node_modules
 
+output.css 
+
 /.pnp
 .pnp.js
 
