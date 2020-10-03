@@ -17,9 +17,9 @@
 * [x] add routers and prefix everything with `api/` in server
 * [x] add functionality to publish form
 * [x] deal with empty forms on the frontend
-* [ ] add a created at date  field to forms so they can be order that way
-* [ ] in submission form page if form is unpublished then do not display it
+* [x] add a created at date  field to forms so they can be order that way
 * [ ] implement functionality for form submission (has button for submitting to history database)
+* [ ] in submission form page if form is unpublished then do not display it
 * [ ] deploy to heroku
 
 ## streatches
