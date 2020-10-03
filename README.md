@@ -9,6 +9,7 @@
 ## Heroku Commands
 - `heroku create project-gemini`
 - `heroku addons:create heroku-postgresql:hobby-dev -a project-gemini`
+- `heroku git:remote -a project-gemini`
 
 ## TODO
 * [x] add page to edit (the preview page but the add field button should be moved)
@@ -22,9 +23,9 @@
 * [x] add functionality to publish form
 * [x] deal with empty forms on the frontend
 * [x] add a created at date  field to forms so they can be order that way
-* [ ] implement functionality for form submission (has button for submitting to history database)
-* [ ] in submission form page if form is unpublished then do not display it
-* [ ] deploy to heroku
+* [x] implement functionality for form submission (has button for submitting to history database)
+* [x] in submission form page if form is unpublished then do not display it
+* [x] deploy to heroku
 
 ## streatches
 * [ ] in the edit page you can delete form
