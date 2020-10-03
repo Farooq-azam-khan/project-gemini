@@ -9,8 +9,11 @@
 ## TODO
 * [x] add page to edit (the preview page but the add field button should be moved)
 * [x] link button on listform page should link to actual form 
-* [ ] implement functionality for form submission (has button for submitting to history database)
 * [x] remove add field button from preview
-* [ ] add form button should link to form creation modal (instead of the displaying it)
-* [ ] deploy to heroku
+* [x] make `ListForm.js` display grid 
+* [x] add form button should link to form creation modal (instead of the displaying it)
+* [x] add loading screen when `ListForm.js` is fetching forms
 * [ ] in the edit page, add an x button to delte form field from form 
+* [ ] add routers and prefise everything with `api/`
+* [ ] implement functionality for form submission (has button for submitting to history database)
+* [ ] deploy to heroku
