@@ -34,11 +34,10 @@ app.get('/api/form-preview/:id/data', async (req, res) => {
         // console.log(form_id)
         const form_data = await pool.query(`SELECT * FROM form WHERE id=$1`, [form_id])
         form = form_data.rows[0]
-        if (form.is_published) {
-            const fields_data = await pool.query(`SELECT * FROM form_field WHERE form=$1`, [form_id])
+        const fields_data = await pool.query(`SELECT * FROM form_field WHERE form=$1`, [form_id])
 
-            fields = fields_data.rows
-
+        fields = fields_data.rows
+        if (fields.length > 0) {
             for (let i = 0; i < fields.length; i++) {
                 const f = fields[i]
                 if (f.name == 'multiple choice') {
@@ -46,13 +45,9 @@ app.get('/api/form-preview/:id/data', async (req, res) => {
                     const field_options = options_data.rows
                     f.options = field_options
                 }
-
             }
-
-            res.json({ form, "fields": fields })
-        } else {
-            res.json(form_data)
         }
+        res.json({ form, "fields": fields })
     } catch (err) {
         console.error(err.message)
     }

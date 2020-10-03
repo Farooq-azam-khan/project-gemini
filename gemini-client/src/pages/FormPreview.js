@@ -8,7 +8,6 @@ import DisplayField from '../components/DisplayField'
 const FormPreview = () => {
     const [form, setForm] = useState({})
     const [fields, setFields] = useState([])
-    const [filedModal, showFieldModal] = useState(false)
     let { id } = useParams()
 
 
