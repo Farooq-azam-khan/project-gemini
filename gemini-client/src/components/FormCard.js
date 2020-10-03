@@ -30,7 +30,7 @@ const FormCard = ({ id, name, organizer, is_published }) => {
         <div className="w-full inline-flex items-center justify-between space-x-2 p-2">
             <span>status</span>
             <span>{is_published ? 'live' : 'not live'}</span>
-            <Link to={`/submit-form/${id}`} className="rounded-full hover:text-white hover:bg-gray-900 p-1"><LinkIcon className="w-4 h-4" /></Link>
+            <Link target="_blank" to={`/submit-form/${id}`} className="rounded-full hover:text-white hover:bg-gray-900 p-1"><LinkIcon className="w-4 h-4" /></Link>
         </div>
         <div className="inline-flex items-center justify-end space-x-2 mt-2 p-2">
             <Link to={`/forms-preview/${id}`} className="text-sm lowercase font-light border border-gray-900 px-2 py-1 rounded-full hover:bg-gray-900 hover:text-white">Preview</Link>

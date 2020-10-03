@@ -12,7 +12,7 @@ import Home from './pages/Home';
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-200">
+    <div className="w-screen h-screen flex flex-col items-center justify-center bg-gray-200">
       <Switch>
         <Route exact path='/'>
           <Home />
