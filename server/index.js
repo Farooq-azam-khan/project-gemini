@@ -18,21 +18,28 @@ app.post('/api/history/:form/', async (req, res) => {
     try {
         const form_id = req.params.form
         const { fields } = req.body
-        const submission = await pool.query('SELECT submission FROM history ORDER BY id DESC LIMIT 1')
-        let submission_id = 1
-        if (submission.rows.length !== 0) {
-            submission_id = submission.rows[0].submission + 1
-        }
-        for (let i = 0; i < fields.length; i++) {
-            const field_id = fields[i].id
-            const response = fields[i].response
-            const add_history = await pool.query(`INSERT INTO history 
+        const is_publised = await pool.query('SELECT * FROM form where id=$1', [form_id])
+        if (is_publised.rows[0].is_publised) {
+
+
+            const submission = await pool.query('SELECT submission FROM history ORDER BY id DESC LIMIT 1')
+            let submission_id = 1
+            if (submission.rows.length !== 0) {
+                submission_id = submission.rows[0].submission + 1
+            }
+            for (let i = 0; i < fields.length; i++) {
+                const field_id = fields[i].id
+                const response = fields[i].response
+                const add_history = await pool.query(`INSERT INTO history 
                                 (form, form_field, response, submission) 
                                 VALUES ($1, $2, $3, $4)`,
-                [form_id, field_id, response, submission_id]
-            )
+                    [form_id, field_id, response, submission_id]
+                )
+            }
+            res.json({ success: true })
+        } else {
+            res.json({ success: false })
         }
-        res.json({ success: true })
     } catch (err) {
         console.error(err.message)
     }
