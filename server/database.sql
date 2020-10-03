@@ -25,6 +25,6 @@ CREATE TABLE history (
   id SERIAL PRIMARY KEY, 
   form INT REFERENCES form(id) ON DELETE CASCADE,
   form_field INT REFERENCES form_field(id) ON DELETE CASCADE, 
-  response VARCHAR(255)
-  -- todo: multiple field input from one person is a submission: submission INT 
+  response VARCHAR(255),
+  submission INT
 );

@@ -14,13 +14,25 @@ app.use(express.json())
 // Routes 
 
 // add a response
-app.post('/api/history/:form/:field', async (req, res) => {
+app.post('/api/history/:form/', async (req, res) => {
     try {
         const form_id = req.params.form
-        const field_id = req.params.field
-        const { response } = req.body
-        const add_history = await pool.query('INSERT INTO history (form, form_field, response) VALUES ($1, $2, $3) RETURNING *', [form_id, field_id, response])
-        res.json(add_history.rows[0])
+        const { fields } = req.body
+        const submission = await pool.query('SELECT submission FROM history ORDER BY id DESC LIMIT 1')
+        let submission_id = 1
+        if (submission.rows.length !== 0) {
+            submission_id = submission.rows[0].submission + 1
+        }
+        for (let i = 0; i < fields.length; i++) {
+            const field_id = fields[i].id
+            const response = fields[i].response
+            const add_history = await pool.query(`INSERT INTO history 
+                                (form, form_field, response, submission) 
+                                VALUES ($1, $2, $3, $4)`,
+                [form_id, field_id, response, submission_id]
+            )
+        }
+        res.json({ success: true })
     } catch (err) {
         console.error(err.message)
     }
@@ -169,7 +181,7 @@ app.delete('/api/form_field/:form_field', async (req, res) => {
     try {
         const { form_field } = req.params
         const deleteFormField = await pool.query('DELETE FROM form_field WHERE id=$1', [form_field])
-        res.json({ success: true, message: 'Form was delted' })
+        res.json({ success: true, message: 'Form was deleted' })
     } catch (err) {
         console.error(err.message)
     }
