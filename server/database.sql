@@ -19,3 +19,11 @@ CREATE TABLE options (
   name VARCHAR(255), 
   form_field INT REFERENCES form_field(id)
 );
+
+CREATE TABLE history (
+  id SERIAL PRIMARY KEY, 
+  form INT REFERENCES form(id),
+  form_field INT REFERENCES form_field(id), 
+  response VARCHAR(255), 
+  -- todo: multiple field input from one person is a submission: submission INT 
+);

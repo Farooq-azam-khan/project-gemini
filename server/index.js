@@ -13,6 +13,19 @@ app.use(express.json())
 
 // Routes 
 
+// add a response
+app.post('/history/:form/:field', async (req, res) => {
+    try {
+        const form_id = req.params.form
+        const field_id = req.params.field
+        const { response } = req.body
+        const add_history = await pool.query('INSERT INTO history (form, form_field, response) VALUES ($1, $2, $3) RETURNING *', [form_id, field_id, response])
+        res.json(add_history.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 // create form field for a form
 
 app.get('/form-preview/:id/data', async (req, res) => {
