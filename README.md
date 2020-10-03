@@ -6,6 +6,10 @@
 - `\c [dbname]` = move into that database
 - `\dt` = list all tables inside a database 
 
+## Heroku Commands
+- `heroku create project-gemini`
+- `heroku addons:create heroku-postgresql:hobby-dev -a project-gemini`
+
 ## TODO
 * [x] add page to edit (the preview page but the add field button should be moved)
 * [x] link button on listform page should link to actual form 
