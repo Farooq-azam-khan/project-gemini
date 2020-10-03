@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './css/output.css'
+// import './css/output.css'
+import './css/prod.css'
 import {
   BrowserRouter as Router,
 

@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build:tailwind": "npx tailwindcss build src/css/tailwind.css -o src/css/output.css",
+    "build:tailwind-prod": "npx tailwindcss build src/css/tailwind.css -o src/css/prod.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
