@@ -1,12 +1,16 @@
 import React from 'react';
-import InputForm from './components/InputForm'
-import ListForms from './components/ListForms'
-import FormPreview from './components/FormPreview'
-
 import {
   Switch,
   Route
 } from "react-router-dom";
+
+import InputForm from './components/InputForm'
+import ListForms from './components/ListForms'
+
+import FormPreview from './pages/FormPreview'
+import EditForm from './pages/EditForm';
+import FormSubmission from './pages/FormSubmission';
+
 
 function App() {
   return (
@@ -18,6 +22,12 @@ function App() {
         </Route>
         <Route path="/forms-preview/:id">
           <FormPreview />
+        </Route>
+        <Route path="/edit-form/:id">
+          <EditForm />
+        </Route>
+        <Route path="/submit-form/:id">
+          <FormSubmission />
         </Route>
       </Switch>
     </div>

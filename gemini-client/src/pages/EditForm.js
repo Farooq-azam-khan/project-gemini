@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {
-    useParams, Redirect
+    useParams
 } from "react-router-dom";
+import DisplayField from '../components/DisplayField'
 
-const FormPreview = () => {
+const EditForm = () => {
     const [form, setForm] = useState({})
     const [fields, setFields] = useState([])
     const [filedModal, showFieldModal] = useState(false)
@@ -17,16 +18,19 @@ const FormPreview = () => {
     }, [id])
 
     return (
-        <div className="w-screen h-screen bg-gray-100 flex flex-col items-center justify-center space-y-10">
-            <h1 className="text-bold text-xl">{form.name}</h1>
-            <div className="flex flex-col space-y-2 bg-gray-300 w-full px-5 py-2">
-                {fields.map((f) => <DisplayField key={f.id} {...f} />)}
+        <div className="flex items-center justify-between">
+            <div className="overflow-y-auto w-full mt-10 bg-gray-200 flex flex-col items-center justify-center space-y-10"><h1 className="text-bold text-xl">Form Edit Page of Form: <span className="uppercase text-blue-800">{form.name}</span></h1>
+
+                <div className=" flex flex-col space-y-2  w-full px-5 py-2">
+                    {fields.map((f) => <DisplayField key={f.id} {...f} />)}
+                </div>
+
             </div>
             <div>
                 <button onClick={() => showFieldModal(true)} className="rounded-md bg-gray-800 text-white px-3 py-2 text-md shadow-md hover:bg-gray-900">Add Form Field</button>
             </div>
-            {filedModal ? <><button onClick={() => showFieldModal(false)} className="fixed inset-0 cursor-default bg-black opacity-50 w-full h-full" /><FiledFormModal form_id={form.id} /></> : null}
-        </div>
+            { filedModal ? <><button onClick={() => showFieldModal(false)} className="fixed inset-0 cursor-default bg-black opacity-50 w-full h-full" /><FiledFormModal form_id={form.id} /></> : null}
+        </div >
     )
 }
 
@@ -58,7 +62,7 @@ const FiledFormModal = ({ form_id }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            window.location = `/forms-preview/${form_id}`
+            window.location = `/edit-form/${form_id}`
             // const resp_json = await response.json()
 
 
@@ -141,28 +145,10 @@ function PlusIcon({ className }) {
     return (<svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>)
 }
 
-const DisplayField = (props) => {
-    switch (props.name) {
-        case 'textarea':
-            return (<label className="flex items-center space-x-3">
-                {props.label} <textarea rows="10" cols="50"></textarea>
-            </label>)
-        case 'input':
-            return (<label className="flex items-center space-x-3">
-                <span>{props.label}</span> <input className="focus:bg-gray-800 px-2 py-1 focus:text-white rounded-lg " />
-            </label>)
-        case 'multiple choice':
-            return (
-                <label className="flex items-center space-x-3">
-                    <span>{props.label}</span>
-                    {props.options.length === 0 ? <div>no options</div> :
-                        <select className="rounded-lg px-2 py-1">
-                            {props.options.map((o) => <option key={o.id} value={o.name}>{o.name}</option>)}
-                        </select>}
 
-                </label>
-            )
-    }
-}
 
-export default FormPreview
+
+
+export default EditForm
+
+
