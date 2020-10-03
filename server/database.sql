@@ -4,7 +4,8 @@ CREATE TABLE form (
     id SERIAL PRIMARY KEY, 
     name VARCHAR(255), 
     organizer VARCHAR(255), 
-    is_published BOOLEAN 
+    is_published BOOLEAN, 
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE form_field (

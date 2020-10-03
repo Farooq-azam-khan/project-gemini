@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 import LoadingScreen from '../components/LoadingScreen'
 import ListForms from '../components/ListForms'
+import InputForm from '../components/InputForm'
 
 const Home = () => {
     const [forms, setForms] = useState([])
@@ -14,6 +15,7 @@ const Home = () => {
         const formsjson = await response.json();
         setForms(formsjson)
         setLoading(false)
+        console.log(formsjson)
     }
 
     useEffect(() => {
@@ -21,6 +23,11 @@ const Home = () => {
     }, [])
     if (loading) {
         return <LoadingScreen />
+    } else if (forms.length === 0) {
+        return (<div className="fixed inset-0 w-full h-full bg-gray-800 flex items-center justify-center">
+            <InputForm />
+
+        </div>)
     }
     return (
         <div className="flex flex-col items-center max-w-4xl bg-gray-200 w-full pt-10 space-y-10 pb-10">

@@ -124,7 +124,7 @@ app.post("/api/forms", async (req, res) => {
 // get all forms 
 app.get('/api/forms', async (req, res) => {
     try {
-        const allForms = await pool.query('SELECT * FROM form')
+        const allForms = await pool.query('SELECT * FROM form ORDER BY created_at DESC')
         res.json(allForms.rows)
     } catch (err) {
         console.error(err.message)
