@@ -168,6 +168,17 @@ app.delete('/forms/:id', async (req, res) => {
     }
 })
 
+// delete form field
+app.delete('/api/form_field/:form_field', async (req, res) => {
+    try {
+        const { form_field } = req.params
+        const deleteFormField = await pool.query('DELETE FROM form_field WHERE id=$1', [form_field])
+        res.json({ success: true, message: 'Form was delted' })
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 const port = 5000
 app.listen(port, () => {
     console.log(`Server has started on port ${port}`)

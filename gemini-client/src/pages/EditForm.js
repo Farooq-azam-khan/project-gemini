@@ -3,34 +3,41 @@ import {
     useParams
 } from "react-router-dom";
 import DisplayField from '../components/DisplayField'
+import LoadingScreen from '../components/LoadingScreen';
 
 const EditForm = () => {
     const [form, setForm] = useState({})
     const [fields, setFields] = useState([])
     const [filedModal, showFieldModal] = useState(false)
+    const [loading, setLoading] = useState(true)
     let { id } = useParams()
 
 
     useEffect(() => {
         fetch(`/form-preview/${id}/data`)
             .then(resp => resp.json())
-            .then(data => { setForm(data.form); setFields(data.fields); console.log(data) })
+            .then(data => {
+                setForm(data.form)
+                setFields(data.fields)
+                setLoading(false)
+            })
+
     }, [id])
 
-    return (
-        <div className="flex items-center justify-between">
-            <div className="overflow-y-auto w-full mt-10 bg-gray-200 flex flex-col items-center justify-center space-y-10"><h1 className="text-bold text-xl">Form Edit Page of Form: <span className="uppercase text-blue-800">{form.name}</span></h1>
+    if (loading) {
+        return <LoadingScreen />
+    }
+    return (<div className="flex flex-col items-center justify-center pt-10 pb-10 space-y-8">
+        <h1 className="text-bold text-xl">Form Edit Page of Form: <span className="uppercase text-blue-800">{form.name}</span></h1>
+        <div>
+            <button onClick={() => showFieldModal(true)} className="rounded-md bg-gray-800 text-white px-3 py-2 text-md shadow-md hover:bg-gray-900">Add Form Field</button>
+        </div>
 
-                <div className=" flex flex-col space-y-2  w-full px-5 py-2">
-                    {fields.map((f) => <DisplayField key={f.id} {...f} />)}
-                </div>
-
-            </div>
-            <div>
-                <button onClick={() => showFieldModal(true)} className="rounded-md bg-gray-800 text-white px-3 py-2 text-md shadow-md hover:bg-gray-900">Add Form Field</button>
-            </div>
-            { filedModal ? <><button onClick={() => showFieldModal(false)} className="fixed inset-0 cursor-default bg-black opacity-50 w-full h-full" /><FiledFormModal form_id={form.id} /></> : null}
-        </div >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-6 py-2 px-3">
+            {fields.map((f) => <DisplayField key={f.id} {...f} editPage={true} />)}
+        </div>
+        {filedModal ? <><button onClick={() => showFieldModal(false)} className="fixed inset-0 cursor-default bg-black opacity-50 w-full h-full" /><FiledFormModal form_id={form.id} /></> : null}
+    </div>
     )
 }
 
@@ -103,7 +110,7 @@ const FiledFormModal = ({ form_id }) => {
                 <select onChange={(e) => setField(e.target.value)} value={selectedField} className="bg-gray-200 p-1 rounded-md w-4/6">
                     <option value="multiple choice">Multiple Choice</option>
                     <option value="input">Input</option>
-                    <option value="textarea">Textarea</option>
+                    <option value="textbox">Textarea</option>
                 </select>
             </label>
             <label className="flex items-center justify-between w-full space-x-2">
