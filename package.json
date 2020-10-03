@@ -2,8 +2,14 @@
   "name": "gemini-server",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.18.3",
+    "npm": "6.14.2"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd gemini-client && npm install && npm run build:tailwind-prod && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Farooq A. Khan",

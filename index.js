@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 require('dotenv').config()
 
 const app = express()
@@ -6,20 +7,33 @@ const cors = require('cors')
 
 
 const pool = require("./db")
+const PORT = process.env.PORT || 5000
 
-// middleware 
+/* middleware */
 app.use(cors())
 app.use(express.json())
 
-// Routes 
+// app.use(express.static(path.join(__dirname, 'gemini-client/build')))
+app.use(express.static('./gemini-client/build'))
+
+if (process.env.NODE_ENV === 'production') {
+    // serve static content 
+    // app.use(express.static(path.join(__dirname, 'gemini-client/build')))
+    app.use(express.static('./gemini-client/build'))
+}
+
+/* Routes */
 
 // add a response
 app.post('/api/history/:form/', async (req, res) => {
     try {
         const form_id = req.params.form
         const { fields } = req.body
-        const is_publised = await pool.query('SELECT * FROM form where id=$1', [form_id])
-        if (is_publised.rows[0].is_publised) {
+        const form_is_published = await pool.query('SELECT * FROM form where id=$1', [form_id])
+        const is_published = form_is_published.rows[0].is_published
+        console.log(form_is_published.rows[0], is_published)
+
+        if (is_published) {
 
 
             const submission = await pool.query('SELECT submission FROM history ORDER BY id DESC LIMIT 1')
@@ -36,9 +50,12 @@ app.post('/api/history/:form/', async (req, res) => {
                     [form_id, field_id, response, submission_id]
                 )
             }
+            console.log({ success: true })
             res.json({ success: true })
         } else {
             res.json({ success: false })
+
+            console.log({ success: false })
         }
     } catch (err) {
         console.error(err.message)
@@ -194,7 +211,10 @@ app.delete('/api/form_field/:form_field', async (req, res) => {
     }
 })
 
-const port = 5000
-app.listen(port, () => {
-    console.log(`Server has started on port ${port}`)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'gemini-client/build/index.html'))
+})
+
+app.listen(PORT, () => {
+    console.log(`Server has started on port ${PORT}`)
 })
