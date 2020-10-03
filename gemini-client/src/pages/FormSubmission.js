@@ -12,7 +12,7 @@ const FormSubmission = () => {
 
 
     useEffect(() => {
-        fetch(`/form-preview/${id}/data`)
+        fetch(`api/form-preview/${id}/data`)
             .then(resp => resp.json())
             .then(data => { setForm(data.form); setFields(data.fields); console.log(data) })
     }, [id])

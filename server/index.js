@@ -14,7 +14,7 @@ app.use(express.json())
 // Routes 
 
 // add a response
-app.post('/history/:form/:field', async (req, res) => {
+app.post('/api/history/:form/:field', async (req, res) => {
     try {
         const form_id = req.params.form
         const field_id = req.params.field
@@ -28,7 +28,7 @@ app.post('/history/:form/:field', async (req, res) => {
 
 // create form field for a form
 
-app.get('/form-preview/:id/data', async (req, res) => {
+app.get('/api/form-preview/:id/data', async (req, res) => {
     try {
         const form_id = req.params.id
         // console.log(form_id)
@@ -57,7 +57,7 @@ app.get('/form-preview/:id/data', async (req, res) => {
         console.error(err.message)
     }
 })
-app.post('/forms/:id/forms_field', async (req, res) => {
+app.post('/api/forms/:id/forms_field', async (req, res) => {
     try {
         // console.log(req.body)
         const form_id = req.params.id
@@ -91,7 +91,7 @@ app.post('/forms/:id/forms_field', async (req, res) => {
 })
 
 // get form fields with given id 
-app.get('/forms/:id/forms_field', async (req, res) => {
+app.get('/api/forms/:id/forms_field', async (req, res) => {
     try {
         const form_id = req.params.id
         const { name, label } = req.body
@@ -102,7 +102,7 @@ app.get('/forms/:id/forms_field', async (req, res) => {
     }
 })
 // create a form 
-app.post("/forms", async (req, res) => {
+app.post("/api/forms", async (req, res) => {
     try {
         // console.log(req.body)
         const { name, organizer } = req.body;
@@ -121,7 +121,7 @@ app.post("/forms", async (req, res) => {
     }
 })
 // get all forms 
-app.get('/forms', async (req, res) => {
+app.get('/api/forms', async (req, res) => {
     try {
         const allForms = await pool.query('SELECT * FROM form')
         res.json(allForms.rows)
@@ -131,7 +131,7 @@ app.get('/forms', async (req, res) => {
 })
 
 // get a form 
-app.get('/forms/:id', async (req, res) => {
+app.get('/api/forms/:id', async (req, res) => {
     try {
         const form_id = req.params.id
         const form = await pool.query('SELECT * FROM  form WHERE id=$1', [form_id]);
@@ -142,7 +142,7 @@ app.get('/forms/:id', async (req, res) => {
 })
 
 // edit/update a form 
-app.put('/forms/:id', async (req, res) => {
+app.put('/api/forms/:id', async (req, res) => {
     try {
         const { id } = req.params
         const { is_published } = req.body
@@ -158,7 +158,7 @@ app.put('/forms/:id', async (req, res) => {
 })
 
 // delete form 
-app.delete('/forms/:id', async (req, res) => {
+app.delete('/api/forms/:id', async (req, res) => {
     try {
         const { id } = req.params
         const deleteForm = await pool.query('DELETE FROM form WHERE id=$1', [id])

@@ -13,7 +13,8 @@
 * [x] make `ListForm.js` display grid 
 * [x] add form button should link to form creation modal (instead of the displaying it)
 * [x] add loading screen when `ListForm.js` is fetching forms
-* [ ] in the edit page, add an x button to delete form field from the form 
-* [ ] add routers and prefise everything with `api/`
+* [x] in the edit page, add an x button to delete form field from the form 
+* [x] add routers and prefix everything with `api/` in server
+* [ ] in the edit page you can delete form
 * [ ] implement functionality for form submission (has button for submitting to history database)
 * [ ] deploy to heroku

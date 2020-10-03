@@ -25,20 +25,20 @@ const DisplayField = (props) => {
     switch (name) {
         case 'textbox':
             return (<div className="flex flex-col items-start space-y-1">
-                <span className="inline-flex items-center space-x-2"><label htmlFor={`text-${id}`} className=" capitalize"> {props.label} </label>{editPage ? <XButton {...props} /> : null}</span>
+                <span className="inline-flex w-full items-center justify-end space-x-2"><label htmlFor={`text-${id}`} className=" capitalize"> {props.label} </label>{editPage ? <XButton {...props} /> : null}</span>
                 <textarea id={`text-${id}`} className="rounded-md shadow-sm w-full h-full " rows="5" cols="10"></textarea>
 
             </div>)
         case 'input':
-            return (<div className="flex flex-col items-start space-y-2 bg-white rounded-md">
-                <span className="inline-flex items-center space-x-2"><label htmlFor={`input-${id}`} className=" capitalize w-full">{props.label}</label>
+            return (<div className="flex flex-col items-start space-y-2">
+                <span className="inline-flex w-full items-center justify-end space-x-2"><label htmlFor={`input-${id}`} className=" capitalize w-full">{props.label}</label>
                     {editPage ? <XButton {...props} /> : null}</span>
                 <input id={`input-${id}`} className="border-2 focus:bg-gray-800 px-2 py-1 w-full focus:text-white rounded-lg " />
 
             </div>)
         case 'multiple choice':
             return (<div className="flex flex-col items-start space-y-2 pt-1 pr-1">
-                <span className="inline-flex items-center space-x-2"><label className="capitalize w-full" htmlFor={`multiple-choice-${id}`}>{props.label}</label>{editPage ? <XButton {...props} /> : null}</span>
+                <span className="inline-flex justify-end w-full items-center space-x-2"><label className="capitalize w-full" htmlFor={`multiple-choice-${id}`}>{props.label}</label>{editPage ? <XButton {...props} /> : null}</span>
                 {props.options.length === 0 ? <div>no options</div> :
                     <select id={`multiple-choice-${id}`} className="rounded-lg px-2 py-1">
                         {props.options.map((o) => <option key={o.id} value={o.name}>{o.name}</option>)}

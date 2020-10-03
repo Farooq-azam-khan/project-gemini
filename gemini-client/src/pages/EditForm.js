@@ -14,7 +14,7 @@ const EditForm = () => {
 
 
     useEffect(() => {
-        fetch(`/form-preview/${id}/data`)
+        fetch(`/api/form-preview/${id}/data`)
             .then(resp => resp.json())
             .then(data => {
                 setForm(data.form)
@@ -64,7 +64,7 @@ const FiledFormModal = ({ form_id }) => {
                 options: selectedField === 'multiple choice' ? optionsToBeAdded : []
             }
 
-            const response = await fetch(`/forms/${form_id}/forms_field`, {
+            const response = await fetch(`/api/forms/${form_id}/forms_field`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

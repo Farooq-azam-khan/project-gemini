@@ -10,7 +10,7 @@ const Home = () => {
 
 
     const getForms = async () => {
-        const response = await fetch("/forms")
+        const response = await fetch("/api/forms")
         const formsjson = await response.json();
         setForms(formsjson)
         setLoading(false)
