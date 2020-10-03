@@ -120,6 +120,7 @@ app.post("/api/forms", async (req, res) => {
         console.error(err.message)
     }
 })
+
 // get all forms 
 app.get('/api/forms', async (req, res) => {
     try {
@@ -142,20 +143,20 @@ app.get('/api/forms/:id', async (req, res) => {
 })
 
 // edit/update a form 
-app.put('/api/forms/:id', async (req, res) => {
+app.put('/api/forms/publish/:id', async (req, res) => {
     try {
         const { id } = req.params
         const { is_published } = req.body
-        const updateForm = await pool.query(`UPDATE form SET is_published = $1 
-                                                WHERE id=$2`,
+        const updateForm = await pool.query(`UPDATE form SET is_published=$1 WHERE id=$2`,
             [is_published, id]
         )
-        res.json('form was updated')
+        res.json({ success: true, message: 'form was updated' })
 
     } catch (err) {
         console.error(error.message)
     }
 })
+
 
 // delete form 
 app.delete('/api/forms/:id', async (req, res) => {
