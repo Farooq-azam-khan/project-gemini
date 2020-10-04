@@ -28,4 +28,5 @@
 * [x] deploy to heroku
 
 ## streatches
+* [x] add a page to display the form submissions
 * [ ] in the edit page you can delete form
