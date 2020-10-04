@@ -13,8 +13,7 @@ const PORT = process.env.PORT || 5000
 app.use(cors())
 app.use(express.json())
 
-// app.use(express.static(path.join(__dirname, 'gemini-client/build')))
-app.use(express.static('./gemini-client/build'))
+// app.use(express.static('./gemini-client/build'))
 
 if (process.env.NODE_ENV === 'production') {
     // serve static content 
@@ -24,6 +23,30 @@ if (process.env.NODE_ENV === 'production') {
 
 /* Routes */
 
+// get a list of submissions
+app.get('/api/form/:form/submissions', async (req, res) => {
+    try {
+        const form_id = req.params.form
+        const submissions = await pool.query('SELECT * FROM history INNER JOIN form_field ON (history.form_field = form_field.id) WHERE history.form=$1;', [form_id])
+        const sub_data = []
+        for (let i = 0; i < submissions.rows.length; i++) {
+            const field = submissions.rows[i]
+            const sub_id = field.submission
+            if (sub_data[sub_id] === undefined) {
+                sub_data[sub_id] = []
+            }
+            sub_data[sub_id].push(field)
+
+        }
+        sub_data.shift()
+        res.json(sub_data)
+
+
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 // add a response
 app.post('/api/history/:form/', async (req, res) => {
     try {
@@ -31,7 +54,6 @@ app.post('/api/history/:form/', async (req, res) => {
         const { fields } = req.body
         const form_is_published = await pool.query('SELECT * FROM form where id=$1', [form_id])
         const is_published = form_is_published.rows[0].is_published
-        console.log(form_is_published.rows[0], is_published)
 
         if (is_published) {
 
@@ -50,12 +72,10 @@ app.post('/api/history/:form/', async (req, res) => {
                     [form_id, field_id, response, submission_id]
                 )
             }
-            console.log({ success: true })
             res.json({ success: true })
         } else {
             res.json({ success: false })
 
-            console.log({ success: false })
         }
     } catch (err) {
         console.error(err.message)
@@ -67,7 +87,6 @@ app.post('/api/history/:form/', async (req, res) => {
 app.get('/api/form-preview/:id/data', async (req, res) => {
     try {
         const form_id = req.params.id
-        // console.log(form_id)
         const form_data = await pool.query(`SELECT * FROM form WHERE id=$1`, [form_id])
         form = form_data.rows[0]
         const fields_data = await pool.query(`SELECT * FROM form_field WHERE form=$1`, [form_id])
@@ -90,7 +109,6 @@ app.get('/api/form-preview/:id/data', async (req, res) => {
 })
 app.post('/api/forms/:id/forms_field', async (req, res) => {
     try {
-        // console.log(req.body)
         const form_id = req.params.id
         const { name, label } = req.body
         const valid_names = ['multiple choice', 'input', 'textbox']
@@ -135,7 +153,6 @@ app.get('/api/forms/:id/forms_field', async (req, res) => {
 // create a form 
 app.post("/api/forms", async (req, res) => {
     try {
-        // console.log(req.body)
         const { name, organizer } = req.body;
         let is_published = false;
         if (req.body.is_published == true || req.body.is_published == false) {
