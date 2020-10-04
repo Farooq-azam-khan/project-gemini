@@ -41,7 +41,7 @@ const SubmissionsList = () => {
 const DisplaySubmission = (props) => {
     console.log(props)
     return (<div className="w-full h-full bg-white rounded-md shadow-lg flex flex-col items-center justify-center space-y-3 p-5">
-        <h2 className="capitalize text-md underline font-semibold">Submission #{props['0'].submission}</h2>
+        <h2 className="capitalize text-md underline font-semibold">Submission {props['0'].submission ? `#props['0'].submission` : null}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-3">
             {Object.keys(props).map(f => <DisplayFormField key={props[f].id} {...props[f]} />)}
         </div>
