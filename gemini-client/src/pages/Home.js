@@ -30,7 +30,7 @@ const Home = () => {
         </div>)
     }
     return (
-        <div className="flex flex-col items-center max-w-4xl bg-gray-200 w-full pt-10 space-y-10 pb-10">
+        <div className="flex flex-col items-center justify-center sm:max-w-4xl bg-gray-200 w-full sm:pt-10 sm:space-y-10 sm:pb-10">
             <h2 className="text-3xl text-center uppercase">Forms List</h2>
             <ListForms forms={forms} />
         </div>
