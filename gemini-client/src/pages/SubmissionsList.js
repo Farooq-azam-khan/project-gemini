@@ -40,6 +40,7 @@ const SubmissionsList = () => {
 
 const DisplaySubmission = (props) => {
     console.log(props)
+    if (Object.keys(props).length === 1) { return (<> </>) }
     return (<div className="w-full h-full bg-white rounded-md shadow-lg flex flex-col items-center justify-center space-y-3 p-5">
         <h2 className="capitalize text-md underline font-semibold">Submission {props.i}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-3">
@@ -64,9 +65,10 @@ const DisplayFormField = (props) => {
                 <span className="text-md sm:text-sm text-gray-800">{props.label}</span><span className="w-full truncate">{props.response}</span>
             </div>)
         default:
-            return (<div className="flex flex-col items-start justify-start w-full">
-                You should not see this, it is an error.
-            </div>)
+            return (<></>)
+        // (<div className="flex flex-col items-start justify-start w-full">
+        //     You should not see this, it is an error.
+        // </div>)
     }
 }
 
