@@ -19,7 +19,7 @@ const ListForms = ({ forms }) => {
 }
 const AddFormCard = ({ close }) => {
     // launches a modal to create a form
-    return (<><button onClick={() => close(true)} className="rounded-lg shadow-lg w-full h-full bg-white border-2 border-gray-500 hover:bg-gray-900 hover:text-white hover:border-none border-dashed flex items-center justify-center">
+    return (<><button onClick={() => close(true)} className=" rounded-lg shadow-lg w-full min-h-full h-32 bg-white border-2 border-gray-500 hover:bg-gray-900 hover:text-white hover:border-none border-dashed flex items-center justify-center">
         <h3 className="text-2xl uppercase">Add Form</h3>
     </button>
 
